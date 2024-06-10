@@ -42,5 +42,7 @@ pub struct CreateEntry<'info>{
 
 
      pub journal_entry:Account<'info,JournalEntryState>,
+     #[account(mut)]
+     pub owner: Signer
 
 }
