@@ -1,6 +1,6 @@
 #![allow(clippy::result_large_err)]
 
-use anchor_lang::prelude::*;
+use anchor_lang::{prelude::*, solana_program::address_lookup_table::instruction};
 
 declare_id!("JhhrH8ufVyDTXer786454mvyixLr6wEEfnEBe5QjS4E");
 
@@ -30,6 +30,7 @@ pub struct  JournalEntryState{
 
 
 #[derive(Accounts)]
+#[instruction(title:String)]
 pub struct CreateEntry<'info>{
      #[account(
         init,
@@ -43,6 +44,7 @@ pub struct CreateEntry<'info>{
 
      pub journal_entry:Account<'info,JournalEntryState>,
      #[account(mut)]
-     pub owner: Signer
+     pub owner: Signer,
+     pub system_program:Program<'info,System >,
 
 }
