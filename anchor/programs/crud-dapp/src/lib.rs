@@ -29,13 +29,18 @@ pub mod crud_dapp {
 
     pub fn  update(
         ctx :Context<UpdateEntry>,
-        title :String,
+        _title :String,
         new_message:String,
 
 
     )->Result<()>{
+        let journal_entry= &mut ctx.accounts.journal_entry;
+        journal_entry.message=new_message;
 
-        
+
+
+        Ok(())
+
     }
 
 }
