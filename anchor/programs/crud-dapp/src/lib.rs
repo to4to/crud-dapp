@@ -29,8 +29,14 @@ pub mod crud_dapp {
 
     pub fn  update(
         ctx :Context<UpdateEntry>,
+        title :String,
+        new_message:String,
 
-    )
+
+    )->Result<()>{
+
+        
+    }
 
 }
 
