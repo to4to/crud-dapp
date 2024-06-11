@@ -1,6 +1,6 @@
 #![allow(clippy::result_large_err)]
 
-use anchor_lang::{prelude::*, solana_program::address_lookup_table::instruction};
+use anchor_lang::prelude::*;
 
 declare_id!("JhhrH8ufVyDTXer786454mvyixLr6wEEfnEBe5QjS4E");
 
@@ -36,11 +36,17 @@ pub mod crud_dapp {
     )->Result<()>{
         let journal_entry= &mut ctx.accounts.journal_entry;
         journal_entry.message=new_message;
-
-
-
         Ok(())
+    }
 
+
+
+    pub fn delete_entry(
+        _ctx:Context<DeleteEntry>,
+        _title:String,
+
+    )->Result<()>{
+        Ok(())
     }
 
 }
@@ -89,6 +95,27 @@ pub struct UpdateEntry<'info>{
         realloc =8+JournalEntryState::INIT_SPACE,
        realloc:: payer=owner,
        realloc::zero=true,
+     )]
+
+
+
+     pub journal_entry:Account<'info,JournalEntryState>,
+     #[account(mut)]
+     pub owner: Signer<'info>,
+     pub system_program:Program<'info,System >,
+
+}
+
+
+
+#[derive(Accounts)]
+#[instruction(title:String)]
+pub struct DeleteEntry<'info>{
+     #[account(
+        mut,
+        seeds=[title.as_bytes(),owner.key().as_ref()],
+        bump,
+       close=owner,
      )]
 
 
